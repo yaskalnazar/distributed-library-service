@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -16,6 +17,13 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @GetMapping("/ui")
+    public ModelAndView getBooks() {
+        ModelAndView mav = new ModelAndView("books");
+        List<BookDto> books = bookService.getAllBooks();
+        mav.addObject("books", books);
+        return mav;
+    }
     @GetMapping
     public ResponseEntity<List<BookDto>> getAllBooks() {
         List<BookDto> books = bookService.getAllBooks();
