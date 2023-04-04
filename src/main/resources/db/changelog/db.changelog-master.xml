@@ -1,0 +1,33 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="2" author="root">
+        <loadData file="db/data/user.csv" tableName="users">
+            <column name="id" type="NUMERIC"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="phone" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+        </loadData>
+
+        <loadData file="db/data/book.csv" tableName="books">
+            <column name="id" type="NUMERIC"/>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="author" type="VARCHAR(255)"/>
+            <column name="publisher" type="VARCHAR(255)"/>
+            <column name="isbn" type="VARCHAR(255)"/>
+            <column name="publication_date" type="DATE"/>
+            <column name="genres" type="VARCHAR(255)"/>
+            <column name="number_of_pages" type="INTEGER"/>
+            <column name="tags" type="VARCHAR(255)"/>
+            <column name="contributor_id" type="NUMERIC"/>
+            <column name="current_keeper_id" type="NUMERIC"/>
+        </loadData>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,4 @@
+id,title,author,publisher,isbn,publication_date,genres,number_of_pages,tags,contributor_id,current_keeper_id
+1,The Great Gatsby,F. Scott Fitzgerald,Scribner,9780743273565,1925-04-10,Fiction,180,Roaring Twenties,1,2
+2,To Kill a Mockingbird,Harper Lee,J. B. Lippincott & Co.,9780446310789,1960-07-11,Fiction,336,Racism,2,3
+3,1984,George Orwell,Secker & Warburg,9780451524935,1949-06-08,Science Fiction,328,Dystopia,3,1

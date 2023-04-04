@@ -1,0 +1,4 @@
+id,name,email,phone,city,address
+1,Alice,a@example.com,1234567,New York,123 Main St
+2,Bob,b@example.com,2345678,Los Angeles,456 Main St
+3,Charlie,c@example.com,3456789,Chicago,789 Main St
