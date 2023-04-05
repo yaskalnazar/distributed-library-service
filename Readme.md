@@ -10,3 +10,5 @@ Spent time:
 
     Task 2: 2h
         Model + Repository + Initial data load by Liquibase.
+
+    Task 3: start 05.04 10:00
