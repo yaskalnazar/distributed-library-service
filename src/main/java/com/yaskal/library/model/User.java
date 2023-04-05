@@ -17,8 +17,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
+    @Column(unique = true)
     private String email;
 
     private String phone;
@@ -27,5 +29,7 @@ public class User {
 
     private String address;
 
+    // TODO make notNull
+    private String password;
 
 }
