@@ -10,6 +10,8 @@
 </head>
 
 <body>
+<div th:insert="~{fragments/header}"></div>
+
 <div class="container">
     <h1 class="mt-5 mb-3">Books List</h1>
     <table class="table">
@@ -24,10 +26,10 @@
         </thead>
         <tbody>
         <tr th:each="book : ${books}">
-            <td th:text="${book.id}"></td>
+            <td><a th:href="@{/api/v1/books/{id}/edit(id=${book.id})}" th:text="${book.id}"></a></td>
             <td th:text="${book.title}"></td>
             <td th:text="${book.author}"></td>
-            <td th:text="${book.yearPublished}"></td>
+            <td th:text="${book.publicationDate}"></td>
             <td th:text="${book.isbn}"></td>
         </tr>
         </tbody>

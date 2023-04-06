@@ -6,15 +6,18 @@ import com.yaskal.library.model.BookDto;
 import com.yaskal.library.repository.BookRepository;
 import com.yaskal.library.mapping.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private UserService userService;
     @Autowired
     private BookMapper bookMapper;
 
@@ -31,7 +34,9 @@ public class BookService {
     }
 
 
-    public BookDto createBook(BookDto bookDto) {
+    public BookDto createBook(BookDto bookDto, Principal principal) {
+        Long userId = userService.getUserByName(principal.getName()).getId();
+        bookDto.setContributorId(userId);
         Book book = bookMapper.toEntity(bookDto);
         Book savedBook = bookRepository.save(book);
         return bookMapper.toDto(savedBook);

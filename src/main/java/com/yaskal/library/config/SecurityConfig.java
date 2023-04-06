@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
-                        .defaultSuccessUrl("/api/v1/books")
+                        .defaultSuccessUrl("/api/v1/books/main")
                 )
                 .logout(LogoutConfigurer::permitAll);
 

@@ -2,6 +2,8 @@ package com.yaskal.library.model;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class BookDto {
     private Long id;
@@ -9,9 +11,11 @@ public class BookDto {
     private String author;
     private String publisher;
     private String isbn;
-    private Integer yearPublished;
-    private String imageUrl;
-    private String description;
-    private Boolean available;
-    private String contributorId;
+    private LocalDate publicationDate;
+    private String genres;
+    private int numberOfPages;
+    private String tags;
+    private Long contributorId;
+    private String currentKeeperId;
+
 }

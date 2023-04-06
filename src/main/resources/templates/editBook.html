@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add Bootstrap stylesheet link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<div th:insert="fragments/header"></div>
+
+<div class="container">
+    <h1>Edit Book</h1>
+    <div th:if="${not #strings.isEmpty(message)}" th:text="${message}" class="alert alert-success mt-3"></div>
+
+
+    <form method="POST" th:action="@{/api/v1/books/{id}/edit(id=${book.id})}" th:object="${book}">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" th:value="${book.title}" required>
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" id="author" name="author" th:value="${book.author}" required>
+        </div>
+        <div class="form-group">
+            <label for="publisher">Publisher</label>
+            <input type="text" class="form-control" id="publisher" name="publisher" th:value="${book.publisher}">
+        </div>
+        <div class="form-group">
+            <label for="isbn">ISBN</label>
+            <input type="text" class="form-control" id="isbn" name="isbn" th:value="${book.isbn}">
+        </div>
+        <div class="form-group">
+            <label for="publicationDate">Publication Date</label>
+            <input type="date" class="form-control" id="publicationDate" name="publicationDate"
+                   th:value="${book.publicationDate}">
+        </div>
+        <div class="form-group">
+            <label for="genres">Genres</label>
+            <input type="text" class="form-control" id="genres" name="genres" th:value="${book.genres}">
+        </div>
+        <div class="form-group">
+            <label for="numberOfPages">Number of Pages</label>
+            <input type="number" class="form-control" id="numberOfPages" name="numberOfPages" value="0"
+                   th:value="${book.numberOfPages}">
+        </div>
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <input type="text" class="form-control" id="tags" name="tags" th:value="${book.tags}">
+        </div>
+        <div class="form-group">
+            <input type="hidden" name="contributorId" th:value="${book.contributorId}">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+</body>
+
+</html>
