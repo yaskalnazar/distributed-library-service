@@ -1,26 +1,32 @@
 package com.yaskal.library.controller;
 
 import com.yaskal.library.exception.UserAlreadyExistsException;
+import com.yaskal.library.model.BookDto;
+import com.yaskal.library.model.User;
 import com.yaskal.library.model.UserDto;
+import com.yaskal.library.service.BookService;
 import com.yaskal.library.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
 @Slf4j
 public class UserController {
 
+    public static final int DEFAUL_PAGE_SIZE = 3;
     @Autowired
     private UserService userService;
+    @Autowired
+    private BookService bookService;
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -48,6 +54,37 @@ public class UserController {
     @GetMapping("/login")
     public ModelAndView showLoginForm() {
         return new ModelAndView("login");
+    }
+
+    @GetMapping("/api/v1/users/{id}")
+    public ModelAndView userProfile(@PathVariable("id") Long id) {
+        ModelAndView mav = new ModelAndView("userProfile");
+
+        UserDto user = userService.getUserById(id);
+
+        List<BookDto> contributedBooks = bookService.findByContributor(id);
+        List<BookDto> borrowedBooks = bookService.findByCurrentKeeper(id);
+
+        mav.addObject("user", user);
+        mav.addObject("contributedBooks", contributedBooks);
+        mav.addObject("borrowedBooks", borrowedBooks);
+        return mav;
+    }
+
+    @GetMapping("/api/v1/users")
+    public ModelAndView listUsers(@RequestParam(value = "page", defaultValue = "1") int page) {
+        Page<User> userPage = userService.getUsersPage(page, DEFAUL_PAGE_SIZE);
+        ModelAndView mav = new ModelAndView("users");
+        mav.addObject("userPage", userPage);
+        mav.addObject("currentPage", userPage.getNumber());
+        int totalPages = userPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            mav.addObject("pageNumbers", pageNumbers);
+        }
+        return mav;
     }
 
 

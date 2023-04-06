@@ -1,11 +1,17 @@
 package com.yaskal.library.service;
 
+import com.yaskal.library.exception.ResourceNotFoundException;
 import com.yaskal.library.exception.UserAlreadyExistsException;
+import com.yaskal.library.mapping.UserMapper;
 import com.yaskal.library.model.User;
 import com.yaskal.library.model.UserDto;
 import com.yaskal.library.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +27,8 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserMapper userMapper;
 
 
     @Override
@@ -45,6 +53,13 @@ public class UserService implements UserDetailsService {
         return userRepository.findByName(username);
     }
 
+    public UserDto getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return userMapper.toDto(user);
+    }
+
+
     public void registerUser(UserDto userDto) throws UserAlreadyExistsException {
         if (userRepository.existsByName(userDto.getName())) {
             log.warn("Registration attempt with existing email: {}", userDto.getEmail());
@@ -66,7 +81,11 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         log.info("User registered successfully with email: {}", userDto.getEmail());
 
+    }
 
+    public Page<User> getUsersPage(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber - 1 , pageSize, Sort.by("name").ascending());
+        return userRepository.findAll(pageable);
     }
 
 }

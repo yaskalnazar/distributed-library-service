@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="fragments/header"></div>
+<br/>
+
+<div class="container">
+    <h1>User Profile</h1>
+    <hr/>
+
+    <div class="card">
+        <div class="card-header">User Details</div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">City</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.city}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <br/>
+
+    <h2>Contributed Books</h2>
+    <div class="card">
+        <div class="card-header">
+            Contributed Books
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Publication Date</th>
+                    <th>Genres</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${contributedBooks}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.publisher}"></td>
+                    <td th:text="${book.publicationDate}"></td>
+                    <td th:text="${book.genres}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br/>
+
+    <h2>Borrowed Books</h2>
+    <div class="card">
+        <div class="card-header">
+            Borrowed Books
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Publication Date</th>
+                    <th>Genres</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${borrowedBooks}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.publisher}"></td>
+                    <td th:text="${book.publicationDate}"></td>
+                    <td th:text="${book.genres}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -9,10 +9,11 @@
 
 <body>
 <div th:insert="fragments/header"></div>
-
+<br/>
 <div class="container">
     <h1>Edit Book</h1>
     <div th:if="${not #strings.isEmpty(message)}" th:text="${message}" class="alert alert-success mt-3"></div>
+
 
 
     <form method="POST" th:action="@{/api/v1/books/{id}/edit(id=${book.id})}" th:object="${book}">

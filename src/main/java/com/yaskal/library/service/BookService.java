@@ -63,6 +63,17 @@ public class BookService {
         return bookMapper.toDto(savedBook);
     }
 
+    public List<BookDto> findByContributor(Long contributorId) {
+        List<Book> books = bookRepository.findByContributor_Id(contributorId);
+        return books.stream().map(bookMapper::toDto).collect(Collectors.toList());
+    }
+
+    public List<BookDto> findByCurrentKeeper(Long currentKeeperId) {
+        List<Book> books = bookRepository.findByCurrentKeeper_Id(currentKeeperId);
+        return books.stream().map(bookMapper::toDto).collect(Collectors.toList());
+    }
+
+
     public void deleteBook(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found with id " + id));
