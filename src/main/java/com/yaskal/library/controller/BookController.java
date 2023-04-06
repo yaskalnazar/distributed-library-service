@@ -1,21 +1,16 @@
 package com.yaskal.library.controller;
 
 import com.yaskal.library.model.BookDto;
-import com.yaskal.library.model.User;
-import com.yaskal.library.repository.UserRepository;
 import com.yaskal.library.service.BookService;
-import com.yaskal.library.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,8 +20,6 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
-    @Autowired
-    private UserRepository userRepository;
 
     @GetMapping("/main")
     public ModelAndView getBooks(Principal principal) {
@@ -68,6 +61,30 @@ public class BookController {
         return mav;
     }
 
+    @GetMapping("/dashboard")
+    public ModelAndView showDashboard() {
+        List<BookDto> allBooks = bookService.getAllBooks();
+        ModelAndView mav = new ModelAndView("dashboard");
+        mav.addObject("allBooks", allBooks);
+        return mav;
+    }
+
+    @PostMapping("/dashboard")
+    public ModelAndView filterBooks(@RequestParam(value = "title", required = false) String title,
+                                    @RequestParam(value = "author", required = false) String author,
+                                    @RequestParam(value = "genres", required = false) String genres,
+                                    @RequestParam(value = "startDate", required = false) LocalDate startDate,
+                                    @RequestParam(value = "endDate", required = false) LocalDate endDate) {
+        List<BookDto> filteredBooks = bookService.findByFilters(title, author, genres, startDate, endDate);
+        ModelAndView mav = new ModelAndView("dashboard");
+        mav.addObject("allBooks", filteredBooks);
+        mav.addObject("title", title);
+        mav.addObject("author", author);
+        mav.addObject("genres", genres);
+        mav.addObject("startDate", startDate);
+        mav.addObject("endDate", endDate);
+        return mav;
+    }
 
     @GetMapping
     public ModelAndView getAllBooks() {
