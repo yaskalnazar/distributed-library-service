@@ -20,6 +20,8 @@ Spent time:
     
     Task 5: 1h
 
+    Task 6: start at 5:20 06/04/2023
+
 
 Notes:
 - ChatGPT cannot use latest spring-security 6.0.2 because its base is formed on data until 2021. I had to spend time dealing with deprecated classes.
