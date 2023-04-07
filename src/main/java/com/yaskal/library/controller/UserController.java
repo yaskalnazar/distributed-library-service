@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 @Slf4j
 public class UserController {
 
-    public static final int DEFAUL_PAGE_SIZE = 3;
+    public static final int DEFAULT_PAGE_SIZE = 3;
     @Autowired
     private UserService userService;
     @Autowired
@@ -53,7 +53,7 @@ public class UserController {
 
     @GetMapping("/login")
     public ModelAndView showLoginForm() {
-        return new ModelAndView("login");
+        return new ModelAndView("loginPage");
     }
 
     @GetMapping("/api/v1/users/{id}")
@@ -73,8 +73,8 @@ public class UserController {
 
     @GetMapping("/api/v1/users")
     public ModelAndView listUsers(@RequestParam(value = "page", defaultValue = "1") int page) {
-        Page<User> userPage = userService.getUsersPage(page, DEFAUL_PAGE_SIZE);
-        ModelAndView mav = new ModelAndView("users");
+        Page<User> userPage = userService.getUsersPage(page, DEFAULT_PAGE_SIZE);
+        ModelAndView mav = new ModelAndView("usersList");
         mav.addObject("userPage", userPage);
         mav.addObject("currentPage", userPage.getNumber());
         int totalPages = userPage.getTotalPages();

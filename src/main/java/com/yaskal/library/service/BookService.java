@@ -74,12 +74,6 @@ public class BookService {
     }
 
 
-    public void deleteBook(Long id) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Book not found with id " + id));
-        bookRepository.delete(book);
-    }
-
     public List<BookDto> findByFilters(String title, String author, String genres, LocalDate startDate, LocalDate endDate) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Book> cq = cb.createQuery(Book.class);

@@ -16,7 +16,7 @@ Spent time:
     Task 5: 1h
     Task 6: 2h30m 
         Basic solution was added very quickly in about half an hour. Another 2h went into trying to add pagination. From the backend side, the chat gave a solution almost immediately. But still could not offer a working solution for UI. There were constant problems with variables, non-working scripts etc.
-    Task 9: start 10:00 07/04/2023
+    Task 9: 3h
 
 
 Notes:
@@ -24,3 +24,4 @@ Notes:
 - ChatGPT invented a non-existent GoogleOAuth2UserService and constantly tries to use it. He was unable to write even an approximately working solution for integration with Google.
 - ChatGPT helped to quickly write forms and methods for task 4 but often lost or made up variables, so it's worth keeping a close eye on it or always providing a list of variables.
 - One of the problems is the limit on the number of characters, because of which HTML pages often cannot be written to the end and break off in the middle.
+- All tests were written by ChatGPT except for minor corrections. Looks like he can be quite useful in this. But there is a problem that the code of the entire class does not fit in one message, and when you ask him to write tests for methods not yet covered by separate requests, he starts using other approaches, so the tests are inconsistent. 

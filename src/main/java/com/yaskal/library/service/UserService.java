@@ -60,7 +60,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public void registerUser(UserDto userDto) throws UserAlreadyExistsException {
+    public UserDto registerUser(UserDto userDto) throws UserAlreadyExistsException {
         if (userRepository.existsByName(userDto.getName())) {
             log.warn("Registration attempt with existing email: {}", userDto.getEmail());
             throw new UserAlreadyExistsException("User with such name already exists");
@@ -78,9 +78,9 @@ public class UserService implements UserDetailsService {
         user.setCity(userDto.getCity());
         user.setAddress(userDto.getAddress());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        userRepository.save(user);
+        User newUser = userRepository.save(user);
         log.info("User registered successfully with email: {}", userDto.getEmail());
-
+        return userMapper.toDto(newUser);
     }
 
     public Page<User> getUsersPage(int pageNumber, int pageSize) {
