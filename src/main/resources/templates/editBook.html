@@ -12,9 +12,6 @@
 <br/>
 <div class="container">
     <h1>Edit Book</h1>
-    <div th:if="${not #strings.isEmpty(message)}" th:text="${message}" class="alert alert-success mt-3"></div>
-
-
 
     <form method="POST" th:action="@{/api/v1/books/{id}/edit(id=${book.id})}" th:object="${book}">
         <div class="form-group">
@@ -56,7 +53,19 @@
         </div>
         <button type="submit" class="btn btn-primary">Save Changes</button>
     </form>
+    </br>
+    <form method="post" action="/api/v1/reservations" >
+        <input type="hidden" name="bookId" th:value="${book.id}">
+        <input type="hidden" name="userId" th:value="${session.userId}">
+        <input type="hidden" name="status" value="PENDING">
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Reserve Book</button>
+        </div>
+    </form>
 </div>
+</br>
+
+
 </body>
 
 </html>

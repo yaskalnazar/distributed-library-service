@@ -1,7 +1,10 @@
 package com.yaskal.library.controller;
 
 import com.yaskal.library.model.BookDto;
+import com.yaskal.library.model.UserDto;
 import com.yaskal.library.service.BookService;
+import com.yaskal.library.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +21,16 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/main")
-    public ModelAndView getBooks(Principal principal) {
+    public ModelAndView getBooks(Principal principal, HttpSession session) {
         ModelAndView mav = new ModelAndView("main");
         String username = principal.getName();
-        mav.addObject("username", username);
+        UserDto user = userService.getUserByName(username);
+        session.setAttribute("userId", user.getId());
+        session.setAttribute("username", username);
         return mav;
     }
 

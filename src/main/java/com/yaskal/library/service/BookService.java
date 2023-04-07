@@ -95,6 +95,8 @@ public class BookService {
         if (endDate != null) {
             predicates.add(cb.lessThanOrEqualTo(book.get("publicationDate"), endDate));
         }
+        predicates.add(cb.isNull(book.get("currentKeeper")));
+
 
         cq.where(predicates.toArray(new Predicate[0]));
 

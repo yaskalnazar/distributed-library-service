@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="book : ${contributedBooks}">
-                    <td th:text="${book.title}"></td>
+                    <td><a th:href="@{/api/v1/books/{id}/edit(id=${book.id})}" th:text="${book.title}">Title</a></td>
                     <td th:text="${book.author}"></td>
                     <td th:text="${book.publisher}"></td>
                     <td th:text="${book.publicationDate}"></td>
@@ -90,7 +90,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="book : ${borrowedBooks}">
-                    <td th:text="${book.title}"></td>
+                    <td><a th:href="@{/api/v1/books/{id}/edit(id=${book.id})}" th:text="${book.title}">Title</a></td>
                     <td th:text="${book.author}"></td>
                     <td th:text="${book.publisher}"></td>
                     <td th:text="${book.publicationDate}"></td>

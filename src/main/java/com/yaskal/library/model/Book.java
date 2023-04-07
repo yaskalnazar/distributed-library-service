@@ -45,4 +45,8 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<LoanHistory> loanHistories = new ArrayList<>();
 
+    public boolean isAvailable() {
+        return currentKeeper == null;
+    }
+
 }

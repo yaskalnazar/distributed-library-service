@@ -49,8 +49,9 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public User getUserByName(String username) {
-        return userRepository.findByName(username);
+    public UserDto getUserByName(String username) {
+        User user = userRepository.findByName(username);
+        return userMapper.toDto(user);
     }
 
     public UserDto getUserById(Long id) {
@@ -84,7 +85,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Page<User> getUsersPage(int pageNumber, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber - 1 , pageSize, Sort.by("name").ascending());
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by("name").ascending());
         return userRepository.findAll(pageable);
     }
 
