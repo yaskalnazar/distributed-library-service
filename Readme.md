@@ -1,5 +1,4 @@
-
-
+Distributed library service. All the code, except minor fixes, is written using chatCPT 3.5.
 
 Spent time:
 
