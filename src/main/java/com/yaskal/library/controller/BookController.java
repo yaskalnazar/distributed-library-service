@@ -4,8 +4,6 @@ import com.yaskal.library.model.BookDto;
 import com.yaskal.library.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -92,24 +90,6 @@ public class BookController {
         List<BookDto> books = bookService.getAllBooks();
         mav.addObject("books", books);
         return mav;
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<BookDto> getBookById(@PathVariable Long id) {
-        BookDto book = bookService.getBookById(id);
-        return new ResponseEntity<>(book, HttpStatus.OK);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<BookDto> updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
-        BookDto updatedBook = bookService.updateBook(id, bookDto);
-        return new ResponseEntity<>(updatedBook, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        bookService.deleteBook(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
 
