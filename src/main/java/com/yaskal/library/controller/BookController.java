@@ -83,13 +83,5 @@ public class BookController {
         mav.addObject("endDate", endDate);
         return mav;
     }
-
-    @GetMapping
-    public ModelAndView getAllBooks() {
-        ModelAndView mav = new ModelAndView("books");
-        List<BookDto> books = bookService.getAllBooks();
-        mav.addObject("books", books);
-        return mav;
-    }
 }
 
